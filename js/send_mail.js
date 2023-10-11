@@ -1,3 +1,37 @@
+// Отправка в телегу
+const TOKEN = "6622272564:AAHtMID3nATVLV0p5l05woTaWtEgJ-YoF2o";
+const CHAT_ID = "-1001923416379";
+const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`
+
+document.getElementById("form_to_tg").addEventListener('submit', function(e){
+    e.preventDefault();
+            
+    let message = `<b>Сообщение с сайта</b>\n`;
+    message+= `<b>Имя отправителя: </b> ${ this.name.value }\n`;
+    message+= `<b>Телега: </b> ${ this.tg.value }\n`;
+    message+= `<b>Текст: </b> ${ this.text.value }\n`;
+
+    axios.post(URI_API,{
+        chat_id: CHAT_ID,
+        parse_mode: 'html',
+        text: message
+    })
+    .then((res)=>{
+        this.name.value = "";
+        this.tg.value = "";
+        this.text.value = "";
+        alert("Спасибо за сообщение, в скором времени я свяжусь с Вами!");
+    })
+    .catch((err)=>{
+        console.warn(err);
+        alert("Извините, но сервис не доступен, свяжитесь со мной любым другим способом!");
+    })
+    .finally(()=>{
+        console.log('Отправка успешная');
+    })
+
+});
+
 // "use strict"
 
 // document.addEventListener('DOMContentLoaded', function(){
@@ -72,36 +106,3 @@
 //     }
 
 // });
-
-const TOKEN = "6622272564:AAHtMID3nATVLV0p5l05woTaWtEgJ-YoF2o";
-const CHAT_ID = "-1001923416379";
-const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`
-
-document.getElementById("form_to_tg").addEventListener('submit', function(e){
-    e.preventDefault();
-            
-    let message = `<b>Сообщение с сайта</b>\n`;
-    message+= `<b>Имя отправителя: </b> ${ this.name.value }\n`;
-    message+= `<b>Телега: </b> ${ this.tg.value }\n`;
-    message+= `<b>Текст: </b> ${ this.text.value }\n`;
-
-    axios.post(URI_API,{
-        chat_id: CHAT_ID,
-        parse_mode: 'html',
-        text: message
-    })
-    .then((res)=>{
-        this.name.value = "";
-        this.tg.value = "";
-        this.text.value = "";
-        alert("Спасибо за сообщение, в скором времени я свяжусь с Вами!");
-    })
-    .catch((err)=>{
-        console.warn(err);
-        alert("Извините, но сервис не доступен, свяжитесь со мной любым другим способом!");
-    })
-    .finally(()=>{
-        console.log('Отправка успешная');
-    })
-
-});

@@ -201,10 +201,10 @@ document.addEventListener("DOMContentLoaded", () => {
 // Video slider engine
 function videoUrl(x){
   document.getElementById('slider_video').src = x;
-}
-function videoUrl(x){
-    document.getElementById('slider_video2').src = x;
-}
+};
+function videoUrl2(y){
+    document.getElementById('slider_video2').src = y;
+};
 
 // Video func
 const playBtn = document.getElementById('vid_play');
